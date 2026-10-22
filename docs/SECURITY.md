@@ -20,3 +20,4 @@
 - Student routes are student-only; identity comes from the session, so one student cannot request another's records.
 - Only the teacher who owns a session can decide its correction requests. Other teachers get 404.
 - Correction decisions are final and audit-logged.
+- Face templates are server-side only and will be stored in face_embeddings; the API must never return them.

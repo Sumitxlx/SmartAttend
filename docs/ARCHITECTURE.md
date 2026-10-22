@@ -56,3 +56,8 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 - /portal/student: overall and per-subject percentages, low-attendance warning, goal calculator, correction request form, history, and correction status.
 - /teach/corrections: pending requests for the teacher's own classes, with approve and reject.
 - Screens only display and call the API. The rules stay in the service files.
+
+## Face recognition rules (M9a)
+- app/services/face_quality.py: photo rules (one face, brightness, sharpness, face size). Pure logic.
+- app/services/face_embedding.py: ArcFace embedding via DeepFace (imported lazily), averaging 5 photos into one unit-length template, minimum 3 usable photos.
+- Tests use fake embeddings; the model is not downloaded during the test run.

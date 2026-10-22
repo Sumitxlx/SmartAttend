@@ -18,3 +18,6 @@ cat >> docs/SECURITY.md << 'EOF'
 - Admin routes: backend-enforced admin-only guard, tested for 401 (anonymous) and 403 (teacher, student).
 - Admin changes to departments, classes and subjects are written to audit_logs (who, what, when).
 EOF
+## People and assignments (M5b)
+app/routers/admin_people.py: teachers and students (login account + profile created in one transaction), and teaching assignments.
+Assignments enforce same-department and same-semester rules. Deleting an assignment that has attendance records returns 409 (enforced by the database, tested once sessions exist).

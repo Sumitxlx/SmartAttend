@@ -1,17 +1,19 @@
-
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import admin_academic, auth
+from app.routers import admin_academic, admin_people, auth
 
 STATIC_DIR = Path(__file__).parent / "static"
 
 app = FastAPI(title="SmartAttend", version="0.1.0")
+
 app.include_router(auth.router)
 app.include_router(admin_academic.router)
+app.include_router(admin_people.router)
+
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 

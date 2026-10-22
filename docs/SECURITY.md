@@ -13,4 +13,5 @@
 - No CSRF token; relying on SameSite=Lax plus JSON-only endpoints. Review later.
 - No password change/reset flow.
 - Embeddings are not yet stored or encrypted (face milestone).
-- HTTPS and COOKIE_SECURE=true required in deployment.
+- HTTPS and COOKIE_SECURE=true required in deployment.- Teacher and student accounts are created only by admins; passwords are hashed and never written to the audit log.
+- Failed profile creation rolls back the login account, so no orphan accounts.

@@ -31,3 +31,7 @@ def root():
 @app.get("/login", include_in_schema=False)
 def login_page():
     return FileResponse(STATIC_DIR / "login.html")
+
+@app.get("/admin", include_in_schema=False)
+def admin_dashboard():
+    return FileResponse(STATIC_DIR / "admin" / "dashboard.html")

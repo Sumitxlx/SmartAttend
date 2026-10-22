@@ -32,3 +32,9 @@ def test_login_page_is_served():
 )
 def test_static_assets_are_served(path):
     assert client.get(path).status_code == 200
+
+def test_admin_dashboard_is_served_without_inline_scripts():
+    r = client.get("/admin")
+    assert r.status_code == 200
+    assert "<script>" not in r.text
+    assert "admin-dashboard.js" in r.text

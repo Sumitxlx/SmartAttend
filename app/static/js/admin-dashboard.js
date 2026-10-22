@@ -1,0 +1,1 @@
+adminPageInit("dashboard");

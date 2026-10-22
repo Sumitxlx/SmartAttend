@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Overview – SmartAttend Admin</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand" style="padding: 0 var(--space-4) var(--space-4);">SmartAttend</div>
+        <nav id="admin-nav" aria-label="Admin navigation"></nav>
+      </aside>
+
+      <div>
+        <header class="app-header">
+          <span class="muted">Signed in as <strong id="admin-name">…</strong></span>
+          <div class="toolbar" style="margin: 0;">
+            <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+            <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+          </div>
+        </header>
+
+        <main class="main">
+          <div class="page-header">
+            <h1>Overview</h1>
+          </div>
+          <p class="muted">
+            Use the navigation to manage departments, classes, subjects, teachers, students and assignments.
+            Those screens arrive in the next parts of Milestone 6.
+          </p>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/admin-layout.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/admin-dashboard.js"></script>
+  </body>
+</html>

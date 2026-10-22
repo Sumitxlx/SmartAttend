@@ -102,3 +102,7 @@ def student_portal_page():
 @app.get("/teach/review", include_in_schema=False)
 def teacher_review_page():
     return FileResponse(STATIC_DIR / "teacher" / "review.html")
+
+@app.get("/teach/camera-test", include_in_schema=False)
+def camera_test_page():
+    return FileResponse(STATIC_DIR / "teacher" / "camera-test.html")

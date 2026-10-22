@@ -74,3 +74,9 @@ def test_review_page_served_without_inline_scripts():
     assert r.status_code == 200
     assert "<script>" not in r.text
     assert "teacher-review.js" in r.text
+
+def test_camera_test_page_served_without_inline_scripts():
+    r = client.get("/teach/camera-test")
+    assert r.status_code == 200
+    assert "<script>" not in r.text
+    assert "camera-test.js" in r.text

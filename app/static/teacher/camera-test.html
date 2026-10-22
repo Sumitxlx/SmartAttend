@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Camera test (diagnostic) – SmartAttend</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <span class="brand">SmartAttend</span>
+      <span class="muted">Signed in as <strong id="teacher-name">…</strong></span>
+      <div class="toolbar" style="margin: 0;">
+        <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+        <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page-header"><h1>Camera test (diagnostic)</h1></div>
+      <p class="muted">
+        Test page only. It sends one frame to an active session and shows the raw result.
+        It does not mark attendance by itself.
+      </p>
+
+      <div id="page-error" class="alert alert-error" role="alert" hidden></div>
+
+      <section class="card" style="margin-bottom: var(--space-5);">
+        <div class="field">
+          <label for="session-id">Active session ID</label>
+          <input id="session-id" type="number" min="1" style="width: auto;" />
+        </div>
+        <div class="toolbar">
+          <button type="button" id="camera-btn" class="btn btn-secondary">Start camera</button>
+          <button type="button" id="capture-btn" class="btn btn-primary" disabled>Capture and recognize</button>
+        </div>
+        <video id="preview" autoplay playsinline muted style="width: 100%; max-width: 480px; border-radius: var(--radius);" hidden></video>
+        <canvas id="snapshot" hidden></canvas>
+      </section>
+
+      <section class="card">
+        <h2 style="font-size: var(--text-lg); margin-top: 0;">Raw result</h2>
+        <p id="summary" class="muted" role="status"></p>
+        <pre id="raw" style="white-space: pre-wrap; overflow-x: auto; font-size: var(--text-sm);"></pre>
+      </section>
+    </main>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/camera-test.js"></script>
+  </body>
+</html>

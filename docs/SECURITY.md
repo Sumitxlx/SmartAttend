@@ -15,3 +15,5 @@
 - Embeddings are not yet stored or encrypted (face milestone).
 - HTTPS and COOKIE_SECURE=true required in deployment.- Teacher and student accounts are created only by admins; passwords are hashed and never written to the audit log.
 - Failed profile creation rolls back the login account, so no orphan accounts.
+- Teachers can act only on their own assignments and sessions. Other teachers' sessions return 404, so their existence is not revealed.
+- Finalized attendance cannot be edited. Corrections are planned as a separate request flow with its own audit trail.

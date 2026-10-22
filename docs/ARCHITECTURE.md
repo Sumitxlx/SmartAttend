@@ -34,3 +34,8 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 ## Admin screens (M6d)
 - Teachers and Students screens: create and list only. The API has no update or delete routes for people yet, so the screens offer neither.
 - Students screen has a class filter that uses the API's class_id query parameter.
+
+## Attendance backend, manual (M7)
+- app/services/attendance_service.py holds the attendance rules; app/routers/teacher_attendance.py only maps HTTP to those rules.
+- Teacher-only routes under /teacher: list own assignments, start a session, view, mark present/absent, finalize.
+- One session per assignment per day. Finalized sessions are locked. Unmarked students are marked absent on finalize.

@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import admin_academic, admin_people, auth
+from app.routers import admin_academic, admin_people, auth, teacher_attendance
 
 STATIC_DIR = Path(__file__).parent / "static"
 
@@ -13,6 +13,7 @@ app = FastAPI(title="SmartAttend", version="0.1.0")
 app.include_router(auth.router)
 app.include_router(admin_academic.router)
 app.include_router(admin_people.router)
+app.include_router(teacher_attendance.router)
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
@@ -47,6 +48,7 @@ def manage_departments():
 def manage_classes():
     return FileResponse(STATIC_DIR / "admin" / "classes.html")
 
+
 @app.get("/manage/subjects", include_in_schema=False)
 def manage_subjects():
     return FileResponse(STATIC_DIR / "admin" / "subjects.html")
@@ -55,6 +57,7 @@ def manage_subjects():
 @app.get("/manage/assignments", include_in_schema=False)
 def manage_assignments():
     return FileResponse(STATIC_DIR / "admin" / "assignments.html")
+
 
 @app.get("/manage/teachers", include_in_schema=False)
 def manage_teachers():

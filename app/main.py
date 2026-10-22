@@ -12,6 +12,7 @@ from app.routers import (
     corrections,
     student_attendance,
     teacher_attendance,
+    teacher_recognition,
 )
 
 STATIC_DIR = Path(__file__).parent / "static"
@@ -24,6 +25,7 @@ app.include_router(admin_academic.router)
 app.include_router(admin_people.router)
 app.include_router(admin_faces.router)
 app.include_router(teacher_attendance.router)
+app.include_router(teacher_recognition.router)
 app.include_router(student_attendance.router)
 app.include_router(corrections.student_router)
 app.include_router(corrections.teacher_router)

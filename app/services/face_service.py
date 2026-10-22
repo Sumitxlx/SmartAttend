@@ -78,3 +78,19 @@ def store_template(db: Session, student: Student, template: list[float]) -> None
         embedding=np.array(template, dtype=np.float32).tobytes(),
         model_name=MODEL_NAME,
     ))
+
+def embed_all_faces(path: str) -> list[list[float]]:
+    """Embeds every face found in one frame. Used by live matching, not by enrollment."""
+    from deepface import DeepFace
+
+    try:
+        result = DeepFace.represent(
+            img_path=path,
+            model_name=MODEL_NAME,
+            enforce_detection=False,
+            detector_backend="opencv",
+        )
+    except ValueError:
+        return []
+    # Drop whole-image fallbacks that have no real face behind them.
+    return [r["embedding"] for r in result if r.get("face_confidence", 0) > 0]

@@ -61,3 +61,9 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 - app/services/face_quality.py: photo rules (one face, brightness, sharpness, face size). Pure logic.
 - app/services/face_embedding.py: ArcFace embedding via DeepFace (imported lazily), averaging 5 photos into one unit-length template, minimum 3 usable photos.
 - Tests use fake embeddings; the model is not downloaded during the test run.
+
+## Live face matching (M9c)
+- app/services/face_matcher.py: cosine similarity and thresholds (present >= 0.32, uncertain >= 0.25, else unknown).
+- app/services/recognition_service.py: matches each frame against templates of the session's class only; writes face records; never overwrites manual marks.
+- POST /teacher/sessions/{id}/recognize accepts one JPEG or PNG frame and returns results without embeddings.
+- Thresholds are starting values; M11 measures them on real photos.

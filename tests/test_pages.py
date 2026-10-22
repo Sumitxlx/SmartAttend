@@ -68,3 +68,9 @@ def test_portal_pages_served_without_inline_scripts(path):
     r = client.get(path)
     assert r.status_code == 200
     assert "<script>" not in r.text
+
+def test_review_page_served_without_inline_scripts():
+    r = client.get("/teach/review")
+    assert r.status_code == 200
+    assert "<script>" not in r.text
+    assert "teacher-review.js" in r.text

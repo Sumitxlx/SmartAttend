@@ -71,3 +71,7 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 ## Uncertain-match review (M9d)
 - Teachers list and resolve uncertain records for their own active sessions. Resolving sets the method to manual and is audit-logged.
 - Finalize is blocked (409) while any uncertain record remains.
+
+## Uncertain-match review screen (M9e)
+- /teach/review lists a session's uncertain matches and lets the teacher mark each present or absent. It redraws from the server's list after every change.
+- The session ID is typed in for now; M9f will link to it from the attendance screen.

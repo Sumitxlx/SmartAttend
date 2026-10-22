@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Review uncertain matches – SmartAttend</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <span class="brand">SmartAttend</span>
+      <span class="muted">Signed in as <strong id="teacher-name">…</strong></span>
+      <div class="toolbar" style="margin: 0;">
+        <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+        <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page-header"><h1>Review uncertain matches</h1></div>
+      <p class="muted">
+        These students were matched to a face with a borderline score. Choose Present or Absent for each one.
+        Finalizing the session is blocked until none are left.
+      </p>
+
+      <div class="toolbar">
+        <label for="session-id">Session ID</label>
+        <input id="session-id" type="number" min="1" style="width: auto;" />
+        <button type="button" id="load-btn" class="btn btn-secondary">Load</button>
+      </div>
+
+      <div id="page-error" class="alert alert-error" role="alert" hidden></div>
+      <p id="summary" class="muted" role="status"></p>
+
+      <div class="table-wrap" id="table-box"></div>
+    </main>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/teacher-review.js"></script>
+  </body>
+</html>

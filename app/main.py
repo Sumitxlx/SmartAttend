@@ -98,3 +98,7 @@ def teacher_corrections_page():
 @app.get("/portal/student", include_in_schema=False)
 def student_portal_page():
     return FileResponse(STATIC_DIR / "student" / "dashboard.html")
+
+@app.get("/teach/review", include_in_schema=False)
+def teacher_review_page():
+    return FileResponse(STATIC_DIR / "teacher" / "review.html")

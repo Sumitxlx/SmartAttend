@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Classes – SmartAttend Admin</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand" style="padding: 0 var(--space-4) var(--space-4);">SmartAttend</div>
+        <nav id="admin-nav" aria-label="Admin navigation"></nav>
+      </aside>
+
+      <div>
+        <header class="app-header">
+          <span class="muted">Signed in as <strong id="admin-name">…</strong></span>
+          <div class="toolbar" style="margin: 0;">
+            <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+            <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+          </div>
+        </header>
+
+        <main class="main">
+          <div class="page-header">
+            <h1>Classes</h1>
+          </div>
+
+          <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="form-title">
+            <h2 id="form-title" style="font-size: var(--text-lg); margin-top: 0;">Add a class</h2>
+            <div id="form-error" class="alert alert-error" role="alert" hidden></div>
+            <form id="class-form" novalidate>
+              <input type="hidden" id="class-id" />
+              <div class="field">
+                <label for="class-dept">Department</label>
+                <select id="class-dept" required></select>
+              </div>
+              <div class="field">
+                <label for="class-name">Class name</label>
+                <input id="class-name" maxlength="50" placeholder="A" required />
+              </div>
+              <div class="field">
+                <label for="class-semester">Semester</label>
+                <input id="class-semester" type="number" min="1" max="12" required />
+              </div>
+              <div class="field">
+                <label for="class-year">Academic year</label>
+                <input id="class-year" placeholder="2026-2027" required />
+              </div>
+              <div class="toolbar">
+                <button type="submit" id="save-btn" class="btn btn-primary">Save</button>
+                <button type="button" id="cancel-btn" class="btn btn-secondary" hidden>Cancel edit</button>
+              </div>
+            </form>
+          </section>
+
+          <div class="table-wrap" id="table-box">
+            <p class="muted" style="padding: var(--space-4);">Loading…</p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/admin-layout.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/admin-classes.js"></script>
+  </body>
+</html>

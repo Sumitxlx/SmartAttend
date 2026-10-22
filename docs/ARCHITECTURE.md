@@ -21,3 +21,8 @@ EOF
 ## People and assignments (M5b)
 app/routers/admin_people.py: teachers and students (login account + profile created in one transaction), and teaching assignments.
 Assignments enforce same-department and same-semester rules. Deleting an assignment that has attendance records returns 409 (enforced by the database, tested once sessions exist).
+
+## Admin screens (M6b)
+- /admin/... is the JSON API. /manage/... serves HTML screens. Keeping them apart stops a browser URL from returning raw JSON by accident.
+- Departments and classes screens use the shared table.js (with Edit and Delete actions) and call the already-tested API.
+- Subjects, teachers, students and assignments screens are not built yet; their nav links return 404.

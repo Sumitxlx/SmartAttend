@@ -122,3 +122,9 @@ th {
     padding: var(--space-4);
   }
 }
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

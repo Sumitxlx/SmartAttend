@@ -38,3 +38,9 @@ def test_admin_dashboard_is_served_without_inline_scripts():
     assert r.status_code == 200
     assert "<script>" not in r.text
     assert "admin-dashboard.js" in r.text
+
+@pytest.mark.parametrize("path", ["/manage/departments", "/manage/classes"])
+def test_admin_management_pages_served_without_inline_scripts(path):
+    r = client.get(path)
+    assert r.status_code == 200
+    assert "<script>" not in r.text

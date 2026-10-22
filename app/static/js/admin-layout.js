@@ -2,12 +2,12 @@
 // Each admin page calls adminPageInit("dashboard") (or the matching page name) once.
 var ADMIN_NAV = [
   { key: "dashboard", label: "Overview", href: "/admin" },
-  { key: "departments", label: "Departments", href: "/admin/departments" },
-  { key: "classes", label: "Classes", href: "/admin/classes" },
-  { key: "subjects", label: "Subjects", href: "/admin/subjects" },
-  { key: "teachers", label: "Teachers", href: "/admin/teachers" },
-  { key: "students", label: "Students", href: "/admin/students" },
-  { key: "assignments", label: "Assignments", href: "/admin/assignments" },
+  { key: "departments", label: "Departments", href: "/manage/departments" },
+  { key: "classes", label: "Classes", href: "/manage/classes" },
+  { key: "subjects", label: "Subjects", href: "/manage/subjects" },
+  { key: "teachers", label: "Teachers", href: "/manage/teachers" },
+  { key: "students", label: "Students", href: "/manage/students" },
+  { key: "assignments", label: "Assignments", href: "/manage/assignments" },
 ];
 
 function buildAdminNav(activeKey) {

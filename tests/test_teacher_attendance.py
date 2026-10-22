@@ -206,3 +206,14 @@ def test_audit_records_start_and_finalize(client, db_session, world):
     actions = [log.action for log in db_session.scalars(select(AuditLog)).all()]
     assert "attendance_session.started" in actions
     assert "attendance_session.finalized" in actions
+
+def test_today_session_lookup_is_owner_only(client, world):
+    login(client, "t1@x.com")
+    url = f"/teacher/assignments/{world['ta1']}/today"
+    assert client.get(url).status_code == 404
+    sid = start(client, world["ta1"]).json()["id"]
+    r = client.get(url)
+    assert r.status_code == 200
+    assert r.json()["id"] == sid
+    login(client, "t2@x.com")
+    assert client.get(url).status_code == 404

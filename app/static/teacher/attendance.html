@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Take attendance – SmartAttend</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <span class="brand">SmartAttend</span>
+      <span class="muted">Signed in as <strong id="teacher-name">…</strong></span>
+      <div class="toolbar" style="margin: 0;">
+        <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+        <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page-header">
+        <h1>Take attendance</h1>
+      </div>
+
+      <div id="page-error" class="alert alert-error" role="alert" hidden></div>
+
+      <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="pick-title">
+        <h2 id="pick-title" style="font-size: var(--text-lg); margin-top: 0;">Choose a class and subject</h2>
+        <div class="field">
+          <label for="assignment">Assignment</label>
+          <select id="assignment"></select>
+        </div>
+        <p id="session-status" class="muted" role="status"></p>
+        <div class="toolbar">
+          <button type="button" id="start-btn" class="btn btn-primary" hidden>Start session</button>
+        </div>
+      </section>
+
+      <section id="session-panel" hidden aria-labelledby="session-title">
+        <div class="page-header">
+          <h2 id="session-title" style="font-size: var(--text-lg); margin: 0;">Students</h2>
+          <button type="button" id="finalize-btn" class="btn btn-primary" hidden>Finalize session</button>
+        </div>
+        <p id="summary" class="muted"></p>
+        <div class="table-wrap" id="table-box"></div>
+      </section>
+    </main>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/teacher-attendance.js"></script>
+  </body>
+</html>

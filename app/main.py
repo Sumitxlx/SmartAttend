@@ -67,3 +67,7 @@ def manage_teachers():
 @app.get("/manage/students", include_in_schema=False)
 def manage_students():
     return FileResponse(STATIC_DIR / "admin" / "students.html")
+
+@app.get("/teach/attendance", include_in_schema=False)
+def teacher_attendance_page():
+    return FileResponse(STATIC_DIR / "teacher" / "attendance.html")

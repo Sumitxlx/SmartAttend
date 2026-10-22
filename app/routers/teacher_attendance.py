@@ -48,6 +48,13 @@ def mark_student(
     session = svc.mark_student(db, user, teacher, session_id, student_id, payload.status)
     return svc.build_session_out(db, session)
 
+@router.get("/assignments/{assignment_id}/today", response_model=SessionOut)
+def today_session(
+    assignment_id: int, db: Session = Depends(get_db), user: User = Depends(teacher_only)
+):
+    teacher = svc.get_teacher_profile(db, user)
+    session = svc.find_today_session(db, teacher, assignment_id)
+    return svc.build_session_out(db, session)
 
 @router.post("/sessions/{session_id}/finalize", response_model=FinalizeOut)
 def finalize_session(

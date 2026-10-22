@@ -200,3 +200,17 @@ def build_session_out(db: Session, session: AttendanceSession) -> SessionOut:
         finalized_at=session.finalized_at,
         students=rows,
     )
+
+def find_today_session(db: Session, teacher: Teacher, assignment_id: int) -> AttendanceSession:
+    assignment = db.get(TeachingAssignment, assignment_id)
+    if assignment is None or assignment.teacher_id != teacher.id:
+        raise HTTPException(status_code=404, detail="Assignment not found")
+    session = db.scalar(
+        select(AttendanceSession).where(
+            AttendanceSession.teaching_assignment_id == assignment.id,
+            AttendanceSession.session_date == date.today(),
+        )
+    )
+    if session is None:
+        raise HTTPException(status_code=404, detail="No session started today")
+    return session

@@ -222,3 +222,63 @@ def test_response_never_contains_embeddings(client, world, monkeypatch):
     fake_faces(monkeypatch, [[1, 0, 0]])
     login(client, "t1@x.com")
     assert "embedding" not in recognize(client, world["active"]).text
+
+def make_uncertain(db, world):
+    rec = AttendanceRecord(
+        session_id=world["active"], student_id=world["s1"],
+        status=AttendanceStatus.uncertain, method=MarkMethod.face, confidence=0.28,
+    )
+    db.add(rec)
+    db.commit()
+    return rec.id
+
+
+def test_uncertain_list_shows_only_uncertain(client, db_session, world):
+    rid = make_uncertain(db_session, world)
+    login(client, "t1@x.com")
+    rows = client.get(f"/teacher/sessions/{world['active']}/uncertain").json()
+    assert [r["record_id"] for r in rows] == [rid]
+
+
+def test_resolve_sets_status_and_manual_method(client, db_session, world):
+    rid = make_uncertain(db_session, world)
+    login(client, "t1@x.com")
+    r = client.put(f"/teacher/sessions/{world['active']}/uncertain/{rid}", json={"status": "present"})
+    assert r.status_code == 200
+    assert r.json() == []
+    record = db_session.get(AttendanceRecord, rid)
+    db_session.refresh(record)
+    assert record.status == AttendanceStatus.present
+    assert record.method == MarkMethod.manual
+
+
+def test_cannot_resolve_a_non_uncertain_record(client, db_session, world):
+    db_session.add(AttendanceRecord(session_id=world["active"], student_id=world["s1"],
+                                    status=AttendanceStatus.present, method=MarkMethod.manual))
+    db_session.commit()
+    rid = db_session.scalar(select(AttendanceRecord.id))
+    login(client, "t1@x.com")
+    r = client.put(f"/teacher/sessions/{world['active']}/uncertain/{rid}", json={"status": "absent"})
+    assert r.status_code == 409
+
+
+def test_finalize_blocked_while_uncertain_remains(client, db_session, world):
+    make_uncertain(db_session, world)
+    login(client, "t1@x.com")
+    r = client.post(f"/teacher/sessions/{world['active']}/finalize")
+    assert r.status_code == 409
+    assert "must be resolved" in r.json()["detail"]
+
+
+def test_finalize_allowed_after_resolving(client, db_session, world):
+    rid = make_uncertain(db_session, world)
+    login(client, "t1@x.com")
+    client.put(f"/teacher/sessions/{world['active']}/uncertain/{rid}", json={"status": "absent"})
+    assert client.post(f"/teacher/sessions/{world['active']}/finalize").status_code == 200
+
+
+def test_other_teacher_cannot_resolve(client, db_session, world):
+    rid = make_uncertain(db_session, world)
+    login(client, "t2@x.com")
+    r = client.put(f"/teacher/sessions/{world['active']}/uncertain/{rid}", json={"status": "present"})
+    assert r.status_code == 404

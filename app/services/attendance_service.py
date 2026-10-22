@@ -2,7 +2,7 @@
 from datetime import date
 
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.time import utcnow
@@ -134,6 +134,19 @@ def finalize_session(db: Session, user: User, teacher: Teacher, session_id: int)
     if session.status == SessionStatus.finalized:
         raise HTTPException(status_code=409, detail="Session is already finalized")
 
+    # Block finalizing while any borderline face match is still unresolved.
+    uncertain_count = db.scalar(
+        select(func.count(AttendanceRecord.id)).where(
+            AttendanceRecord.session_id == session.id,
+            AttendanceRecord.status == AttendanceStatus.uncertain,
+        )
+    )
+    if uncertain_count:
+        raise HTTPException(
+            status_code=409,
+            detail=f"{uncertain_count} uncertain match(es) must be resolved before finalizing",
+        )
+
     enrolled = db.scalars(select(Student).where(Student.class_id == assignment.class_id)).all()
     marked = set(
         db.scalars(
@@ -200,6 +213,7 @@ def build_session_out(db: Session, session: AttendanceSession) -> SessionOut:
         finalized_at=session.finalized_at,
         students=rows,
     )
+
 
 def find_today_session(db: Session, teacher: Teacher, assignment_id: int) -> AttendanceSession:
     assignment = db.get(TeachingAssignment, assignment_id)

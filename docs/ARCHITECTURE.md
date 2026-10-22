@@ -67,3 +67,7 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 - app/services/recognition_service.py: matches each frame against templates of the session's class only; writes face records; never overwrites manual marks.
 - POST /teacher/sessions/{id}/recognize accepts one JPEG or PNG frame and returns results without embeddings.
 - Thresholds are starting values; M11 measures them on real photos.
+
+## Uncertain-match review (M9d)
+- Teachers list and resolve uncertain records for their own active sessions. Resolving sets the method to manual and is audit-logged.
+- Finalize is blocked (409) while any uncertain record remains.

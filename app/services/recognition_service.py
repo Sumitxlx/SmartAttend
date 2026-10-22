@@ -12,6 +12,7 @@ from app.services import face_service
 from app.services.attendance_service import get_owned_session
 from app.services.face_matcher import classify, cosine_similarity
 
+from app.services.audit import record_audit
 
 def _enrolled_templates(db: Session, class_id: int) -> dict[int, list[float]]:
     rows = db.execute(
@@ -93,3 +94,47 @@ def recognize_frame(db: Session, user: User, teacher, session_id: int, photo_pat
         "unrecognized_faces": unrecognized,
         "results": results,
     }
+
+
+
+def list_uncertain(db: Session, teacher, session_id: int) -> list[dict]:
+    session, _ = get_owned_session(db, teacher, session_id)
+    rows = db.execute(
+        select(AttendanceRecord, Student, User)
+        .join(Student, AttendanceRecord.student_id == Student.id)
+        .join(User, Student.user_id == User.id)
+        .where(
+            AttendanceRecord.session_id == session.id,
+            AttendanceRecord.status == AttendanceStatus.uncertain,
+        )
+        .order_by(Student.roll_number)
+    ).all()
+    return [
+        {
+            "record_id": record.id,
+            "student_id": student.id,
+            "roll_number": student.roll_number,
+            "full_name": user.full_name,
+            "score": record.confidence,
+        }
+        for record, student, user in rows
+    ]
+
+
+def resolve_uncertain(db: Session, user, teacher, session_id: int, record_id: int, status_value: str) -> None:
+    session, _ = get_owned_session(db, teacher, session_id)
+    if session.status != SessionStatus.active:
+        raise HTTPException(status_code=409, detail="This session is finalized and can no longer be changed")
+
+    record = db.get(AttendanceRecord, record_id)
+    if record is None or record.session_id != session.id:
+        raise HTTPException(status_code=404, detail="Record not found")
+    if record.status != AttendanceStatus.uncertain:
+        raise HTTPException(status_code=409, detail="Only uncertain records can be resolved")
+
+    record.status = AttendanceStatus(status_value)
+    record.method = MarkMethod.manual
+    record.marked_by_user_id = user.id
+    record.marked_at = utcnow()
+    record_audit(db, user, "attendance.resolved", "attendance_record", record.id, f"status={status_value}")
+    db.commit()

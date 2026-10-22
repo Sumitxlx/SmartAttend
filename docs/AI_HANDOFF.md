@@ -38,3 +38,9 @@ Planned: OpenCV + DeepFace (ArcFace).
 - Uncertain attendance status is not produced yet; it arrives with M9.
 - TestClient deprecation warning (harmless).
 - Admin recovery: `python -m scripts.create_admin`, `python -m scripts.reset_password`.
+
+## Unverified as of M9e
+- M9b real ArcFace enrollment on real photos: NOT yet tested (fake-embedding tests only). Deferred by choice.
+- M9c/M9d live matching with a real camera: NOT yet tested.
+- /teach/review browser check: not yet confirmed.
+- Recognition thresholds 0.32 / 0.25: starting values, to be measured in M11.

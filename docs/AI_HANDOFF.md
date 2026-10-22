@@ -43,3 +43,8 @@ Dev machine: macOS, VS Code, GitHub repo Sumitxlx/SmartAttend.
 - Sessions use the server's local date.
 - httpx/starlette TestClient deprecation warning (harmless).
 - First admin: `python -m scripts.create_admin`; forgotten password: `python -m scripts.reset_password`.
+
+## Verification update
+- M7: 111 tests passed. Verified.
+- M7b: 113 tests passed (includes the today-session lookup). Browser reload check not yet confirmed.
+- Known UI issue: the screen's Class/Semester form error was vague; fixed in api.js to name the field.

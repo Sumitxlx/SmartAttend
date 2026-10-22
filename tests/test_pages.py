@@ -50,3 +50,9 @@ def test_subject_and_assignment_pages_served_without_inline_scripts(path):
     r = client.get(path)
     assert r.status_code == 200
     assert "<script>" not in r.text
+
+@pytest.mark.parametrize("path", ["/manage/teachers", "/manage/students"])
+def test_teacher_and_student_pages_served_without_inline_scripts(path):
+    r = client.get(path)
+    assert r.status_code == 200
+    assert "<script>" not in r.text

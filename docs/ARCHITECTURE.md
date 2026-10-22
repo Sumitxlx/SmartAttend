@@ -30,3 +30,7 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 ## Admin screens (M6c)
 - Subjects screen: add, edit, delete; uses the same table.js pattern as departments and classes.
 - Assignments screen: create and remove only (assignments are not edited). Shows a setup note when teachers, subjects or classes are missing.
+
+## Admin screens (M6d)
+- Teachers and Students screens: create and list only. The API has no update or delete routes for people yet, so the screens offer neither.
+- Students screen has a class filter that uses the API's class_id query parameter.

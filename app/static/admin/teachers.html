@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teachers – SmartAttend Admin</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand" style="padding: 0 var(--space-4) var(--space-4);">SmartAttend</div>
+        <nav id="admin-nav" aria-label="Admin navigation"></nav>
+      </aside>
+
+      <div>
+        <header class="app-header">
+          <span class="muted">Signed in as <strong id="admin-name">…</strong></span>
+          <div class="toolbar" style="margin: 0;">
+            <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+            <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+          </div>
+        </header>
+
+        <main class="main">
+          <div class="page-header">
+            <h1>Teachers</h1>
+          </div>
+
+          <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="form-title">
+            <h2 id="form-title" style="font-size: var(--text-lg); margin-top: 0;">Add a teacher</h2>
+            <p class="muted">Creates a login account for the teacher. Share the password with them securely.</p>
+            <div id="form-error" class="alert alert-error" role="alert" hidden></div>
+            <form id="teacher-form" novalidate>
+              <div class="field">
+                <label for="t-name">Full name</label>
+                <input id="t-name" maxlength="150" required />
+              </div>
+              <div class="field">
+                <label for="t-email">Email (used to sign in)</label>
+                <input id="t-email" type="email" maxlength="255" autocomplete="off" required />
+              </div>
+              <div class="field">
+                <label for="t-password">Temporary password (at least 10 characters)</label>
+                <input id="t-password" type="password" minlength="10" maxlength="128" autocomplete="new-password" required />
+              </div>
+              <div class="field">
+                <label for="t-employee">Employee ID</label>
+                <input id="t-employee" maxlength="50" required />
+              </div>
+              <div class="field">
+                <label for="t-dept">Department</label>
+                <select id="t-dept" required></select>
+              </div>
+              <div class="toolbar">
+                <button type="submit" id="save-btn" class="btn btn-primary">Add teacher</button>
+              </div>
+            </form>
+          </section>
+
+          <div class="table-wrap" id="table-box">
+            <p class="muted" style="padding: var(--space-4);">Loading…</p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/admin-layout.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/admin-teachers.js"></script>
+  </body>
+</html>

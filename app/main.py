@@ -55,3 +55,12 @@ def manage_subjects():
 @app.get("/manage/assignments", include_in_schema=False)
 def manage_assignments():
     return FileResponse(STATIC_DIR / "admin" / "assignments.html")
+
+@app.get("/manage/teachers", include_in_schema=False)
+def manage_teachers():
+    return FileResponse(STATIC_DIR / "admin" / "teachers.html")
+
+
+@app.get("/manage/students", include_in_schema=False)
+def manage_students():
+    return FileResponse(STATIC_DIR / "admin" / "students.html")

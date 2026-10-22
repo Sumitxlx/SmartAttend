@@ -1,0 +1,34 @@
+import pytest
+from fastapi.testclient import TestClient
+
+from app.main import app
+
+client = TestClient(app)
+
+
+def test_root_redirects_to_login():
+    r = client.get("/", follow_redirects=False)
+    assert r.status_code in (302, 307)
+    assert r.headers["location"] == "/login"
+
+
+def test_login_page_is_served():
+    r = client.get("/login")
+    assert r.status_code == 200
+    assert "text/html" in r.headers["content-type"]
+    assert "<form" in r.text
+    assert "<script>" not in r.text  # no inline scripts, keeps a strict CSP possible later
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/static/css/tokens.css",
+        "/static/css/base.css",
+        "/static/js/theme.js",
+        "/static/js/api.js",
+        "/static/js/login.js",
+    ],
+)
+def test_static_assets_are_served(path):
+    assert client.get(path).status_code == 200

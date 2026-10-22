@@ -19,16 +19,16 @@ from app.models import User, UserRole
 from app.routers import auth as auth_router
 
 # A small app just for testing: the real auth router plus two protected routes.
-test_app = FastAPI()
-test_app.include_router(auth_router.router)
+auth_test_app = FastAPI()
+auth_test_app.include_router(auth_router.router)
 
 
-@test_app.get("/admin-only")
+@auth_test_app.get("/admin-only")
 def admin_only(user: User = Depends(require_roles(UserRole.admin))):
     return {"ok": True}
 
 
-@test_app.get("/teacher-or-admin")
+@auth_test_app.get("/teacher-or-admin")
 def teacher_or_admin(user: User = Depends(require_roles(UserRole.teacher, UserRole.admin))):
     return {"ok": True}
 
@@ -56,10 +56,10 @@ def client(db_session):
     def override_get_db():
         yield db_session
 
-    test_app.dependency_overrides[get_db] = override_get_db
-    with TestClient(test_app) as c:
+    auth_test_app.dependency_overrides[get_db] = override_get_db
+    with TestClient(auth_test_app) as c:
         yield c
-    test_app.dependency_overrides.clear()
+    auth_test_app.dependency_overrides.clear()
 
 
 def login(client, email=EMAIL, password=PASSWORD):

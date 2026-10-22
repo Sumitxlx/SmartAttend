@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in – SmartAttend</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <span class="brand">SmartAttend</span>
+      <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+    </header>
+
+    <main class="auth-layout">
+      <section class="card auth-card" aria-labelledby="page-title">
+        <h1 id="page-title">Sign in</h1>
+
+        <div id="page-error" class="alert alert-error" role="alert" hidden></div>
+
+        <p id="checking" class="muted" role="status">Checking your session…</p>
+
+        <form id="login-form" novalidate hidden>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <button type="submit" id="submit-btn" class="btn btn-primary btn-block">Sign in</button>
+        </form>
+
+        <div id="signed-in" hidden>
+          <p class="alert alert-success" role="status">You are signed in.</p>
+          <dl class="details">
+            <dt>Name</dt>
+            <dd id="user-name"></dd>
+            <dt>Email</dt>
+            <dd id="user-email"></dd>
+            <dt>Role</dt>
+            <dd id="user-role" class="capitalize"></dd>
+          </dl>
+          <p class="muted">
+            The Admin, Teacher and Student portals are not built yet. They will open from here in later milestones.
+          </p>
+          <button type="button" id="logout-btn" class="btn btn-secondary">Sign out</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/login.js"></script>
+  </body>
+</html>

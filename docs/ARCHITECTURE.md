@@ -39,3 +39,12 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 - app/services/attendance_service.py holds the attendance rules; app/routers/teacher_attendance.py only maps HTTP to those rules.
 - Teacher-only routes under /teacher: list own assignments, start a session, view, mark present/absent, finalize.
 - One session per assignment per day. Finalized sessions are locked. Unmarked students are marked absent on finalize.
+
+## Student attendance backend (M8a)
+- app/services/student_service.py: percentages, history, low-attendance threshold (75%), goal calculator. Finalized sessions only.
+- Student routes under /student. The student is taken from the login session, never from the URL.
+
+## Corrections (M8b)
+- app/services/correction_service.py: students request a change to a finalized record; the owning teacher approves or rejects.
+- Approval changes the attendance record and writes an audit row. Rejection changes only the request.
+- Routes: /student/corrections (create, list own) and /teacher/corrections (pending, approve, reject).

@@ -17,3 +17,6 @@
 - Failed profile creation rolls back the login account, so no orphan accounts.
 - Teachers can act only on their own assignments and sessions. Other teachers' sessions return 404, so their existence is not revealed.
 - Finalized attendance cannot be edited. Corrections are planned as a separate request flow with its own audit trail.
+- Student routes are student-only; identity comes from the session, so one student cannot request another's records.
+- Only the teacher who owns a session can decide its correction requests. Other teachers get 404.
+- Correction decisions are final and audit-logged.

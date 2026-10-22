@@ -4,7 +4,9 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import admin_academic, admin_people, auth, student_attendance, teacher_attendance
+from app.routers import (
+    admin_academic, admin_people, auth, corrections, student_attendance, teacher_attendance,
+)
 
 STATIC_DIR = Path(__file__).parent / "static"
 
@@ -15,6 +17,8 @@ app.include_router(admin_academic.router)
 app.include_router(admin_people.router)
 app.include_router(teacher_attendance.router)
 app.include_router(student_attendance.router)
+app.include_router(corrections.student_router)
+app.include_router(corrections.teacher_router)
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 

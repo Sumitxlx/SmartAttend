@@ -85,6 +85,7 @@ def history(db: Session, student: Student) -> list[dict]:
     rows = _finalized_rows(db, student)
     return [
         {
+            "record_id": record.id,
             "session_date": session.session_date,
             "subject_code": subject.code,
             "subject_name": subject.name,

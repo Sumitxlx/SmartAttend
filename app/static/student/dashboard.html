@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My attendance – SmartAttend</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <span class="brand">SmartAttend</span>
+      <span class="muted">Signed in as <strong id="student-name">…</strong></span>
+      <div class="toolbar" style="margin: 0;">
+        <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+        <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page-header"><h1>My attendance</h1></div>
+      <div id="page-error" class="alert alert-error" role="alert" hidden></div>
+
+      <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="overall-title">
+        <h2 id="overall-title" style="font-size: var(--text-lg); margin-top: 0;">Overall</h2>
+        <p id="overall" class="muted">Loading…</p>
+        <div id="low-warning" class="alert alert-error" hidden></div>
+        <div class="table-wrap" id="subjects-box"></div>
+      </section>
+
+      <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="goal-title">
+        <h2 id="goal-title" style="font-size: var(--text-lg); margin-top: 0;">Goal calculator</h2>
+        <p class="muted">Shows what it takes to reach a target. It does not change any records.</p>
+        <form id="goal-form" novalidate>
+          <div class="field">
+            <label for="goal-target">Target attendance (%)</label>
+            <input id="goal-target" type="number" min="0" max="100" step="0.1" required />
+          </div>
+          <div class="field">
+            <label for="goal-future">Classes you plan to attend from now on (optional)</label>
+            <input id="goal-future" type="number" min="0" max="1000" value="0" />
+          </div>
+          <div class="toolbar">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+          </div>
+        </form>
+        <p id="goal-result" role="status"></p>
+      </section>
+
+      <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="corr-title">
+        <h2 id="corr-title" style="font-size: var(--text-lg); margin-top: 0;">Request a correction</h2>
+        <p class="muted">If a record is wrong, ask your teacher to review it. The record changes only if they approve.</p>
+        <div id="corr-error" class="alert alert-error" role="alert" hidden></div>
+        <form id="correction-form" novalidate>
+          <div class="field">
+            <label for="corr-record">Attendance record</label>
+            <select id="corr-record" required></select>
+          </div>
+          <div class="field">
+            <label for="corr-status">Should be recorded as</label>
+            <select id="corr-status">
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="corr-reason">Reason (at least 10 characters)</label>
+            <textarea id="corr-reason" rows="3" maxlength="500" required></textarea>
+          </div>
+          <div class="toolbar">
+            <button type="submit" class="btn btn-primary">Send request</button>
+          </div>
+        </form>
+      </section>
+
+      <section style="margin-bottom: var(--space-5);" aria-labelledby="my-corr-title">
+        <h2 id="my-corr-title" style="font-size: var(--text-lg);">My correction requests</h2>
+        <div class="table-wrap" id="corrections-box"></div>
+      </section>
+
+      <section aria-labelledby="history-title">
+        <h2 id="history-title" style="font-size: var(--text-lg);">Attendance history</h2>
+        <div class="table-wrap" id="history-box"></div>
+      </section>
+    </main>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/student-dashboard.js"></script>
+  </body>
+</html>

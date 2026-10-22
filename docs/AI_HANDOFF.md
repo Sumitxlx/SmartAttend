@@ -5,46 +5,36 @@ SmartAttend: college attendance web app with face recognition. Portals: Admin, T
 
 ## Stack
 Python 3.11, FastAPI, SQLAlchemy 2, Alembic, SQLite, Argon2, PyJWT.
-Frontend: plain HTML/CSS/JS in app/static (JSON API under /admin/... and /teacher/..., HTML screens under /manage/...).
+Frontend: plain HTML/CSS/JS in app/static. JSON API under /admin, /teacher, /student. HTML screens under /manage, /teach, /portal.
 Planned: OpenCV + DeepFace (ArcFace).
-Dev machine: macOS, VS Code, GitHub repo Sumitxlx/SmartAttend.
 
-## Done and verified (automated tests)
-- M1: /health ok.
-- M2: 13 tables via migration 0d15a82347ea; model tests passed.
-- M3: auth, role guard; admin login verified in browser.
-- M4: login page and design tokens; tests passed.
-- M5a: departments, classes, subjects API; 72 tests; smoke script 9/9 PASS; audit log verified.
-- M5b: teachers, students, assignments API; 91 tests passed.
-- M6a: admin layout, shared table/toast; 92 tests passed.
-- M6b: departments and classes screens; 94 tests; add/edit/delete verified in browser.
-- M6c: subjects and assignments screens; 96 tests passed.
-- M6d: teachers and students screens; 98 tests passed.
-- M7: manual attendance session API (rules in attendance_service.py); 111 tests passed.
+## Done (automated tests passing)
+- M1 health; M2 schema (13 tables); M3 auth and roles; M4 login page and theme.
+- M5a departments, classes, subjects API (smoke script 9/9, audit verified).
+- M5b teachers, students, assignments API.
+- M6a-d admin screens (departments and classes add/edit/delete verified in browser).
+- M7 manual attendance API; M7b teacher attendance screen.
+- M8a student summary, history, goal API; M8b corrections API.
+- M8c student and teacher correction screens (last pytest count: about 141).
 
-## Not yet verified
+## Not yet verified in browser
 - M4: reload keeps session, theme toggle, narrow screen.
-- M6a: sidebar, sign-out, narrow-screen checks.
-- M5b: /docs walkthrough (teacher create, assignment create, teacher 403).
-- M6c/M6d: browser add/filter checks for teachers, students and assignments.
-- M7: /docs walkthrough of sessions (start, mark, finalize, 409 on repeat).
+- M6a: sidebar, sign-out, narrow screen.
+- M5b: /docs walkthrough (teacher create, assignment, teacher 403).
+- M6c/M6d: teacher and student add, assignment dropdown, class filter.
+- M7b: reload keeps the mark on an active session.
+- M8c: student dashboard and teacher correction approve/reject in browser.
 
 ## Next
-- M7b: teacher attendance screen (pick assignment, start session, mark students, finalize).
-- M8: student portal (percentages, history, goal calculator, correction requests).
-- M9: face enrollment and live recognition, with uncertain-match handling.
-- M10: corrections, reports, audit viewer.
-- M11: face-recognition evaluation on real photos.
-- M12: security review, deployment, demo.
+- M9: face enrollment and live recognition (DeepFace + ArcFace), with uncertain-match review and manual fallback.
+- M10: reports and audit viewer.
+- M11: face-recognition evaluation on real photos (accuracy, false accepts and rejects, threshold choice).
+- M12: security review, deployment, demo script.
 
 ## Known gaps
-- Teachers and students cannot be edited or deleted yet (API and screens).
+- Teachers and students cannot be edited or deleted.
 - Lists are not paginated.
 - Sessions use the server's local date.
-- httpx/starlette TestClient deprecation warning (harmless).
-- First admin: `python -m scripts.create_admin`; forgotten password: `python -m scripts.reset_password`.
-
-## Verification update
-- M7: 111 tests passed. Verified.
-- M7b: 113 tests passed (includes the today-session lookup). Browser reload check not yet confirmed.
-- Known UI issue: the screen's Class/Semester form error was vague; fixed in api.js to name the field.
+- Uncertain attendance status is not produced yet; it arrives with M9.
+- TestClient deprecation warning (harmless).
+- Admin recovery: `python -m scripts.create_admin`, `python -m scripts.reset_password`.

@@ -200,3 +200,9 @@ def test_goal_target_100_is_unreachable_after_any_absence(db_session, world):
 def test_goal_endpoint_rejects_bad_target(client, world):
     login(client, "s1@x.com")
     assert client.get("/student/goal?target=150").status_code == 422
+
+def test_history_includes_record_id_for_corrections(client, db_session, world):
+    build_history_for_s1(db_session, world)
+    login(client, "s1@x.com")
+    rows = client.get("/student/history").json()
+    assert rows and all(isinstance(r["record_id"], int) for r in rows)

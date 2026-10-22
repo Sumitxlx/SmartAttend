@@ -27,6 +27,7 @@ class SummaryOut(BaseModel):
 
 
 class HistoryItem(BaseModel):
+    record_id: int
     session_date: date
     subject_code: str
     subject_name: str

@@ -48,3 +48,11 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 - app/services/correction_service.py: students request a change to a finalized record; the owning teacher approves or rejects.
 - Approval changes the attendance record and writes an audit row. Rejection changes only the request.
 - Routes: /student/corrections (create, list own) and /teacher/corrections (pending, approve, reject).
+
+## Teacher attendance screen (M7b)
+- /teach/attendance uses the teacher JSON API. GET /teacher/assignments/{id}/today lets the screen resume today's session after a reload.
+
+## Student and teacher screens (M8c)
+- /portal/student: overall and per-subject percentages, low-attendance warning, goal calculator, correction request form, history, and correction status.
+- /teach/corrections: pending requests for the teacher's own classes, with approve and reject.
+- Screens only display and call the API. The rules stay in the service files.

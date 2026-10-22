@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assignments – SmartAttend Admin</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand" style="padding: 0 var(--space-4) var(--space-4);">SmartAttend</div>
+        <nav id="admin-nav" aria-label="Admin navigation"></nav>
+      </aside>
+
+      <div>
+        <header class="app-header">
+          <span class="muted">Signed in as <strong id="admin-name">…</strong></span>
+          <div class="toolbar" style="margin: 0;">
+            <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+            <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+          </div>
+        </header>
+
+        <main class="main">
+          <div class="page-header">
+            <h1>Teaching assignments</h1>
+          </div>
+
+          <section class="card" style="margin-bottom: var(--space-5);" aria-labelledby="form-title">
+            <h2 id="form-title" style="font-size: var(--text-lg); margin-top: 0;">Assign a teacher</h2>
+            <p class="muted">Links one teacher to one subject for one class. The subject's department and semester must match the teacher and class.</p>
+            <div id="form-error" class="alert alert-error" role="alert" hidden></div>
+            <p id="setup-note" class="alert" hidden></p>
+            <form id="assign-form" novalidate>
+              <div class="field">
+                <label for="assign-teacher">Teacher</label>
+                <select id="assign-teacher" required></select>
+              </div>
+              <div class="field">
+                <label for="assign-subject">Subject</label>
+                <select id="assign-subject" required></select>
+              </div>
+              <div class="field">
+                <label for="assign-class">Class</label>
+                <select id="assign-class" required></select>
+              </div>
+              <div class="toolbar">
+                <button type="submit" id="save-btn" class="btn btn-primary">Assign</button>
+              </div>
+            </form>
+          </section>
+
+          <div class="table-wrap" id="table-box">
+            <p class="muted" style="padding: var(--space-4);">Loading…</p>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/admin-layout.js"></script>
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/table.js"></script>
+    <script src="/static/js/admin-assignments.js"></script>
+  </body>
+</html>

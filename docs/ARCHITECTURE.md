@@ -26,3 +26,7 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 - /admin/... is the JSON API. /manage/... serves HTML screens. Keeping them apart stops a browser URL from returning raw JSON by accident.
 - Departments and classes screens use the shared table.js (with Edit and Delete actions) and call the already-tested API.
 - Subjects, teachers, students and assignments screens are not built yet; their nav links return 404.
+
+## Admin screens (M6c)
+- Subjects screen: add, edit, delete; uses the same table.js pattern as departments and classes.
+- Assignments screen: create and remove only (assignments are not edited). Shows a setup note when teachers, subjects or classes are missing.

@@ -12,9 +12,10 @@ from app.routers import (
     corrections,
     student_attendance,
     teacher_attendance,
+    teacher_faces,
     teacher_recognition,
 )
-
+    
 STATIC_DIR = Path(__file__).parent / "static"
 
 app = FastAPI(title="SmartAttend", version="0.1.0")

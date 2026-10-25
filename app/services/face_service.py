@@ -94,3 +94,16 @@ def embed_all_faces(path: str) -> list[list[float]]:
         return []
     # Drop whole-image fallbacks that have no real face behind them.
     return [r["embedding"] for r in result if r.get("face_confidence", 0) > 0]
+
+
+def teacher_teaches_student(db: Session, teacher, student: Student) -> bool:
+    """True if the teacher has an assignment for the student's class."""
+    from app.models import TeachingAssignment
+
+    found = db.scalar(
+        select(TeachingAssignment.id).where(
+            TeachingAssignment.teacher_id == teacher.id,
+            TeachingAssignment.class_id == student.class_id,
+        )
+    )
+    return found is not None

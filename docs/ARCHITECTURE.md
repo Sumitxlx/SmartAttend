@@ -79,3 +79,7 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 ## Role-based home and teacher menu (Navigation A)
 - After login, admin goes to /admin, teacher to /teach/home, student to /portal/student (login.js HOME_BY_ROLE).
 - /teach/home is a menu linking to the teacher's task pages. Links are convenience only; the backend still enforces roles.
+
+## Teacher face enrollment, backend (part 1)
+- POST /teacher/students/{id}/face-enrollment: teachers enroll students in classes they teach. Other students return 404.
+- Same photo rules and template storage as admin enrollment. Duplicated upload code to be merged into one helper later.

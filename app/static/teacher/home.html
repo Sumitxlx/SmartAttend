@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Teacher home – SmartAttend</title>
+    <link rel="stylesheet" href="/static/css/tokens.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+    <script src="/static/js/theme.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <span class="brand">SmartAttend</span>
+      <span class="muted">Signed in as <strong id="teacher-name">…</strong></span>
+      <div class="toolbar" style="margin: 0;">
+        <button type="button" id="theme-toggle" class="btn btn-secondary btn-small">Dark theme</button>
+        <button type="button" id="logout-btn" class="btn btn-secondary btn-small">Sign out</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="page-header"><h1>Teacher home</h1></div>
+      <p class="muted">Choose a task.</p>
+
+      <div class="toolbar" style="flex-direction: column; align-items: stretch; max-width: 32rem;">
+        <a class="btn btn-primary" href="/teach/attendance">Take attendance</a>
+        <a class="btn btn-secondary" href="/teach/review">Review uncertain matches</a>
+        <a class="btn btn-secondary" href="/teach/corrections">Correction requests</a>
+        <a class="btn btn-secondary" href="/teach/camera-test">Camera test (diagnostic)</a>
+      </div>
+    </main>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/teacher-home.js"></script>
+  </body>
+</html>

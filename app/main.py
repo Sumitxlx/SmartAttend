@@ -106,3 +106,7 @@ def teacher_review_page():
 @app.get("/teach/camera-test", include_in_schema=False)
 def camera_test_page():
     return FileResponse(STATIC_DIR / "teacher" / "camera-test.html")
+
+@app.get("/teach/home", include_in_schema=False)
+def teacher_home_page():
+    return FileResponse(STATIC_DIR / "teacher" / "home.html")

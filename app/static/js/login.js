@@ -9,6 +9,13 @@
   var submitButton = document.getElementById("submit-btn");
   var logoutButton = document.getElementById("logout-btn");
 
+  // Where each role goes after signing in.
+  var HOME_BY_ROLE = {
+    admin: "/admin",
+    teacher: "/teach/home",
+    student: "/portal/student",
+  };
+
   function showView(name) {
     checking.hidden = name !== "checking";
     form.hidden = name !== "form";
@@ -27,7 +34,12 @@
   }
 
   function renderUser(user) {
-    // textContent (not innerHTML) so user data can never be treated as HTML.
+    var home = HOME_BY_ROLE[user.role];
+    if (home) {
+      window.location.replace(home);
+      return;
+    }
+    // Unknown role: show the signed-in box as before.
     document.getElementById("user-name").textContent = user.full_name;
     document.getElementById("user-email").textContent = user.email;
     document.getElementById("user-role").textContent = user.role;

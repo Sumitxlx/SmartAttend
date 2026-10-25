@@ -75,3 +75,7 @@ Assignments enforce same-department and same-semester rules. Deleting an assignm
 ## Uncertain-match review screen (M9e)
 - /teach/review lists a session's uncertain matches and lets the teacher mark each present or absent. It redraws from the server's list after every change.
 - The session ID is typed in for now; M9f will link to it from the attendance screen.
+
+## Role-based home and teacher menu (Navigation A)
+- After login, admin goes to /admin, teacher to /teach/home, student to /portal/student (login.js HOME_BY_ROLE).
+- /teach/home is a menu linking to the teacher's task pages. Links are convenience only; the backend still enforces roles.

@@ -15,7 +15,7 @@ from app.routers import (
     teacher_faces,
     teacher_recognition,
 )
-    
+
 STATIC_DIR = Path(__file__).parent / "static"
 
 app = FastAPI(title="SmartAttend", version="0.1.0")
@@ -27,6 +27,7 @@ app.include_router(admin_people.router)
 app.include_router(admin_faces.router)
 app.include_router(teacher_attendance.router)
 app.include_router(teacher_recognition.router)
+app.include_router(teacher_faces.router)
 app.include_router(student_attendance.router)
 app.include_router(corrections.student_router)
 app.include_router(corrections.teacher_router)
@@ -86,9 +87,19 @@ def manage_students():
     return FileResponse(STATIC_DIR / "admin" / "students.html")
 
 
+@app.get("/teach/home", include_in_schema=False)
+def teacher_home_page():
+    return FileResponse(STATIC_DIR / "teacher" / "home.html")
+
+
 @app.get("/teach/attendance", include_in_schema=False)
 def teacher_attendance_page():
     return FileResponse(STATIC_DIR / "teacher" / "attendance.html")
+
+
+@app.get("/teach/review", include_in_schema=False)
+def teacher_review_page():
+    return FileResponse(STATIC_DIR / "teacher" / "review.html")
 
 
 @app.get("/teach/corrections", include_in_schema=False)
@@ -96,18 +107,11 @@ def teacher_corrections_page():
     return FileResponse(STATIC_DIR / "teacher" / "corrections.html")
 
 
-@app.get("/portal/student", include_in_schema=False)
-def student_portal_page():
-    return FileResponse(STATIC_DIR / "student" / "dashboard.html")
-
-@app.get("/teach/review", include_in_schema=False)
-def teacher_review_page():
-    return FileResponse(STATIC_DIR / "teacher" / "review.html")
-
 @app.get("/teach/camera-test", include_in_schema=False)
 def camera_test_page():
     return FileResponse(STATIC_DIR / "teacher" / "camera-test.html")
 
-@app.get("/teach/home", include_in_schema=False)
-def teacher_home_page():
-    return FileResponse(STATIC_DIR / "teacher" / "home.html")
+
+@app.get("/portal/student", include_in_schema=False)
+def student_portal_page():
+    return FileResponse(STATIC_DIR / "student" / "dashboard.html")
